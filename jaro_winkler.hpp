@@ -17,8 +17,8 @@ namespace edit_distance {
                                  const unsigned length,
                                  const T bias)
     {
-        const auto sl = source.length();
-        const auto tl = target.length();
+        const unsigned sl = source.length();
+        const unsigned tl = target.length();
         if (sl == 0) {
             return tl == 0 ? 1.0 : 0.0;
         }
@@ -32,7 +32,7 @@ namespace edit_distance {
         unsigned matches = 0;
         for (unsigned i = 0; i < sl; ++i) {
                 const auto end = std::min(i + match_distance + 1, tl);
-                for (int k = std::max(0u, i - match_distance); k < end; ++k) {
+                for (auto k = i > match_distance ? (i - match_distance) : 0u; k < end; ++k) {
                 if (!target_matches[k] && source[i] == target[k]) {
                     source_matches[i] = true;
                     target_matches[k] = true;
